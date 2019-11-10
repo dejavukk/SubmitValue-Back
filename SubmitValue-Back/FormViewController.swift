@@ -21,20 +21,25 @@ class FormViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    // Submit 버튼을 탭 했을 때 호출되는 메소드.
     @IBAction func onSubmit(_ sender: Any) {
         
-        // presetingViewController를 통해 이전 화면 객체를 읽어온 후
-        // ViewController 타입으로 캐스팅한다.
         let preVC = self.presentingViewController
         guard let vc = preVC as? ViewController else {
             
             return
         }
         
-        // 값 전달
-        vc.paramEmail = self.email.text
-        vc.paramUpdate = self.isUpdate.isOn
-        vc.paramInterval = self.interval.value
+        // UserDefualt 객체의 인스턴스를 가져온다.
+        let ud = UserDefaults.standard
+        
+        // 값을 저장
+        ud.set(self.email.text, forKey: "email")
+        ud.set(self.isUpdate.isOn, forKey: "isUpdate")
+        ud.set(self.interval.value, forKey: "interval")
+        
+        
+        // let ad = UIApplication.shared.delegate as? AppDelegate
         
         // 이전 화면으로 복귀한다.
         self.presentingViewController?.dismiss(animated: true)
